@@ -41,8 +41,8 @@ Start the server
 ```bash
   node index.js
 ```
-## UpComming Updates isA : 
-- JWT Autentication in (Login - Register - Logout )
+## Upcomming Updates isA : 
+- JWT Authentication in (Login - Register - Logout )
 - Cookies Handling
 
 ## Contact
