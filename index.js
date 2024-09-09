@@ -3,11 +3,18 @@ const app = express();
 const mongoose = require("mongoose");
 const methodOverride = require("method-override");
 const myRoutes = require("./Routes/allRoutes");
+const cors = require("cors")
+const corsConfig = {
+  origin : "*",
+  credential : true ,
+  methods : ["GET" , "POST" , "PUT" , "DELETE"] 
+}
 app.use(methodOverride("_method"));
 app.use(express.urlencoded({ extended: true })); //To Access Body Parameters
 app.set("view engine", "ejs"); //to Use EJS
 app.use(express.static("public")); //to Use Static Files e.g. (Css , Js , Images)
 app.use(myRoutes);
+app.use(cors(corsConfig))
 const port = process.env.PORT || 5500
 
 //Connection To Database
