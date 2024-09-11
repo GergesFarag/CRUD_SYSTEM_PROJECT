@@ -43,6 +43,7 @@ Start the server
 ```
 ## Upcomming Updates isA : 
 - JWT Authentication in (Login - Register - Logout )
+- Password Hashing via Bcrypt
 - Cookies Handling
 
 ## Contact
