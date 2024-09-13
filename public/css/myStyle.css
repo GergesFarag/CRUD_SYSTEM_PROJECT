@@ -61,3 +61,24 @@
 form{
   display: inline;
 }
+.body{
+  background-color: #1A1D20 !important;
+}
+.register {
+  position: absolute;
+  top: 75%;
+  left: 49%;
+  transform: translateX(-50%);
+  line-height: 2;
+}
+.reg2{
+  display: flex !important;
+  flex-direction: row !important;
+  color: white !important;
+  justify-content: center;
+  align-items: center;
+  padding-top: 25px;
+}
+footer{
+  padding-top: 6rem !important;
+}

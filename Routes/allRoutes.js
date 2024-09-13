@@ -1,24 +1,45 @@
 const express = require("express");
 const router = express.Router();
-const controllers = require("../Controllers/customerControllers");
-router.get("/", controllers.customer_index_get);
+const customer_cont = require("../Controllers/customerControllers");
+const user_cont = require("../Controllers/userControllers");
+const middlewares = require("../middlewares/middleware")
+const {check} = require("express-validator")
 
-router.get("/customer/add.html", controllers.customer_add_get);
+router.get("*" , middlewares.isUserLogin);
 
-router.get("/customer/edit.html", controllers.customer_edit_get);
+router.post("*" , middlewares.isUserLogin);
 
-router.get("/customer/search.html", controllers.customer_search_get);
+router.get("/",user_cont.user_index_get);
 
-router.post("/customer/add.html", controllers.customer_index_post);
+router.get("/dashboard" , middlewares.requireAuth , customer_cont.customer_dashboard_get);
 
-router.get("/view/:id", controllers.customer_view_get);
+router.get("/customer/add" , middlewares.requireAuth, customer_cont.customer_add_get);
 
-router.get("/edit/:id", controllers.customer_editspecif_get);
+router.get("/customer/edit" , middlewares.requireAuth, customer_cont.customer_edit_get);
 
-router.delete("/delete/:id", controllers.customer_index_delete);
+router.get("/customer/search" , middlewares.requireAuth, customer_cont.customer_search_get);
 
-router.put("/edit/:id", controllers.customer_index_put);
+router.post("/customer/add", customer_cont.customer_index_post);
 
-router.post("/search", controllers.customer_search_post);
+router.get("/view/:id", middlewares.requireAuth, customer_cont.customer_view_get);
+
+router.get("/edit/:id", middlewares.requireAuth, customer_cont.customer_editspecif_get);
+
+router.delete("/delete/:id", customer_cont.customer_index_delete);
+
+router.put("/edit/:id", customer_cont.customer_index_put);
+
+router.post("/search", customer_cont.customer_search_post);
+
+router.get("/login" , user_cont.user_login_get);
+
+router.get("/register" , user_cont.user_reg_get);
+
+router.post("/register",[check("email", "Please provide a valid email").isEmail(),
+    check("password", "Password must be at least 8 characters with 1 uppercase letter and 1 number and 1 digit").matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/)] , user_cont.user_reg_post)
+
+router.post("/login" , user_cont.user_login_post)
+
+router.get("/signout" , user_cont.user_signout_get)
 
 module.exports = router;

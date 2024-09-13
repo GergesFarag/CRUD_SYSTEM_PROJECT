@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="auto">
   <head>
-    <script src="../js/color-modes.js"></script>
+    <script src="./js/color-modes.js"></script>
     <link
       rel="stylesheet"
-      href="../bootstrap-icons-1.10.5/font/bootstrap-icons.min.css"
+      href="./bootstrap-icons-1.10.5/font/bootstrap-icons.min.css"
     />
-    <link rel="shortcut icon" href="../img/logo.png" type="image/x-icon">
-
+    <link rel="shortcut icon" href="./img/logo.png" type="image/x-icon">
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content="" />
@@ -16,12 +15,12 @@
       content="Mark Otto, Jacob Thornton, and Bootstrap contributors"
     />
     <meta name="generator" content="Hugo 0.112.5" />
-    <title>Edit page</title>
+    <title>Dashboard</title>
 
-    <link href="../css/bootstrap.min.css" rel="stylesheet" />
+    <link href="./css/bootstrap.min.css" rel="stylesheet" />
     <!-- Custom styles for this template -->
-    <link href="../css/sidebars.css" rel="stylesheet" />
-    <link rel="stylesheet" href="../css/myStyle.css" />
+    <link href="./css/sidebars.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/css/myStyle.css" />
     <link rel="stylesheet" href="/css/dark-light.css">
   </head>
   <body>
@@ -137,84 +136,75 @@
     </svg>
 
     <main class="d-flex flex-nowrap">
-      <%- include('../Components/Sidebar.ejs' , {currentPage : "" , user:user}) %>
+      <%- include('Components/Sidebar.ejs' , {currentPage : "dashboard" , user : user}) %>
       <section class="w-100">
-        <%- include('../Components/navbar.ejs') %>
-
-        <nav
-          style="width: 88%"
-          class="px-2 mt-4 d-flex flex-wrap justify-content-between"
-          aria-label="breadcrumb"
-        >
-          <ol class="breadcrumb ms-5">
-            <li class="breadcrumb-item"><a href="/dashboard">Home</a></li>
-            <li class="breadcrumb-item active" aria-current="page">
-             <%= customer.firstname %>
-            </li>
-          </ol>
-
-          <p class=" ">
-            <span class="fw-medium fs-6">Id :</span> <%= customer._id %>
-          </p>
-        </nav>
-
+        <%- include('Components/navbar.ejs') %>
         <table
-          style="width: 80%"
-          class="ms-1 table mt-5 table-striped table-bordered ms-5"
+          style="width: 93%"
+          class="text-center mx-auto table mt-5 table-striped table-bordered"
         >
           <thead>
             <tr>
-              <th scope="col">First Name</th>
-              <th class="fw-normal" scope="col"><%= customer.firstname %></th>
+              <th scope="col">#</th>
+              <th scope="col">Full Name</th>
+              <th scope="col">Gender</th>
+              <th scope="col">Country</th>
+              <th scope="col">Age</th>
+              <th scope="col">Last updated</th>
+              <th scope="col">Action</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <th scope="row">Last Name</th>
-              <td><%= customer.lastname %></td>
-            </tr>
-
-            <tr>
-              <th scope="row">Telephone</th>
-              <td><%= customer.phone %></td>
-            </tr>
-
-            <tr>
-              <th scope="row">Email</th>
-              <td><%= customer.email %></td>
-            </tr>
-
-            <tr>
-              <th scope="row">Gender</th>
-              <td><%= customer.gender %></td>
-            </tr>
-
-            <tr>
-              <th scope="row">Age</th>
-              <td><%= customer.age %></td>
-            </tr>
-
-            <tr>
-              <th scope="row">Country</th>
-              <td><%= customer.country %></td>
-            </tr>
-
-            <tr>
-              <th scope="row">Created on</th>
-              <td><%= moment(customer.createdAt).format("LLL")%></td>
-            </tr>
-
-            <tr>
-              <th scope="row">Last Update</th>
-              <td><%= moment(customer.updatedAt).format("LLL")%></td>
-            </tr>
+            <% customers.forEach((customer , index) => { %>
+              <tr>
+                <th scope="row"><%= index+1 %></th>
+                <td><%=`${customer.firstname} ${customer.lastname}`%></td>
+                <td><%= customer.gender %></td>
+                <td><%= customer.country %></td>
+                <td><%= customer.age %></td>
+                <td><%= moment(customer.updatedAt).format("LLL")%></td>
+                <td>
+                  <a
+                    data-bs-toggle="tooltip"
+                    data-bs-title="View details"
+                    data-bs-placement="top"
+                    class="btn btn-primary btn-sm me-1"
+                    href="/view/<%= customer._id %>"
+                    ><i class="bi bi-eye"></i
+                  ></a>
+  
+                  <a
+                    data-bs-toggle="tooltip"
+                    data-bs-title="Edit customer"
+                    data-bs-placement="top"
+                    class="btn btn-primary btn-sm me-1"
+                    href="/edit/<%= customer._id %>"
+                  >
+                    <i class="bi bi-pencil"></i>
+                  </a>
+                  <form action="/delete/<%=customer._id%>?_method=delete" method="post">
+                    <button
+                    data-bs-toggle="tooltip"
+                    data-bs-title="Delete customer"
+                    data-bs-placement="top"
+                    class="btn btn-danger btn-sm me-1"
+                    type="submit"
+                  >
+                    <i class="bi bi-trash"></i>
+                  </button>
+                  </form>
+                </td>
+              </tr>
+            <% }); %>
           </tbody>
         </table>
+        <%- customers.length ? '' : '<h3 class = "ms-5">No Added Customers</h3>'%>
       </section>
     </main>
-    <script src="../js/bootstrap.bundle.min.js"></script>
+    <script src="./js/bootstrap.bundle.min.js"></script>
 
-    <script src="../js/sidebars.js"></script>
-    <script src="../js/main.js"></script>
+    <script src="./js/sidebars.js"></script>
+
+    <script src="./js/main.js"></script>
   </body>
 </html>

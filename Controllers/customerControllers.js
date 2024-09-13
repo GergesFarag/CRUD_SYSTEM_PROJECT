@@ -1,9 +1,9 @@
 const moment = require("moment");
 const Customer = require("../models/Customer"); //Getting customer Collection from models
 
-const customer_index_get = async (req, res) => {
+const customer_dashboard_get = async (req, res) => {
   const customers = await Customer.find();
-  await res.render("index.ejs", { customers, moment });
+  res.render("dashboard.ejs", { customers, moment , user : res.locals.user });
 };
 const customer_add_get = async (req, res) => {
   await res.render("customer/add");
@@ -12,7 +12,7 @@ const customer_edit_get = async (req, res) => {
   await res.render("customer/edit");
 };
 const customer_search_get = async (req, res) => {
-  await res.render("customer/search");
+  await res.render("customer/search" );
 };
 const customer_view_get = async (req, res) => {
   const customer = await Customer.findById(req.params.id);
@@ -24,13 +24,13 @@ const customer_editspecif_get = async (req, res) => {
 };
 const customer_index_post = async (req, res) => {
   await Customer.create(req.body);
-  res.redirect("/");
+  res.redirect("/dashboard");
 };
 const customer_index_delete = (req, res) => {
   Customer.findByIdAndDelete(req.params.id)
     .then(() => {
       console.log("User Found And Deleted !");
-      res.redirect("/");
+      res.redirect("/dashboard");
     })
     .catch((error) => {
       console.log("Error Occured : ", error);
@@ -39,7 +39,7 @@ const customer_index_delete = (req, res) => {
 const customer_index_put = async (req, res) => {
   await Customer.findByIdAndUpdate(req.params.id, req.body);
   console.log("User Updated");
-  res.redirect("/");
+  res.redirect("/dashboard");
 };
 const customer_search_post = async (req, res) => {
   let customers = await Customer.find();
@@ -51,8 +51,9 @@ const customer_search_post = async (req, res) => {
   );
   res.render("customer/search", { myCustomers });
 };
+
 module.exports = {
-  customer_index_get,
+  customer_dashboard_get,
   customer_add_get,
   customer_edit_get,
   customer_search_get,

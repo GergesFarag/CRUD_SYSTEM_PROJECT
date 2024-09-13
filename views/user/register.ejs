@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="./bootstrap-icons-1.10.5/font/bootstrap-icons.min.css"
+    />
+    <link
+      rel="shortcut icon"
+      href="../../public/img/logo.png"
+      type="image/x-icon"
+    />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="" />
+    <meta
+      name="author"
+      content="Mark Otto, Jacob Thornton, and Bootstrap contributors"
+    />
+    <meta name="generator" content="Hugo 0.112.5" />
+    <title>Register</title>
+
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Custom styles for this template -->
+    <link href="css/sidebars.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/myStyle.css" />
+    <link rel="stylesheet" href="css/dark-light.css" />
+    <link rel="stylesheet" href="css/cover.css" />
+    <link rel="stylesheet" href="css/signin.css" />
+    <title>Login</title>
+  </head>
+  <body class="d-flex h-100 text-center text-bg-dark body">
+    <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+      <%- include('../Components/LogHeader') %>
+      <main class="form-signin w-100 m-auto">
+        <p class="text-danger" id="signupDanger"></p>
+        <form id="signupForm" method="post" action="/register">
+          <%- danger %>
+          <h1 class="h3 mb-3 fw-normal">Register :</h1>
+          <div class="form-floating mb-3">
+            <input
+              type="text"
+              class="form-control"
+              id="floatingInput"
+              placeholder="Username"
+              name="username"
+              required
+            />
+            <label for="floatingInput" class="text-dark opacity-50"
+              >Username</label
+            >
+          </div>
+          <div class="form-floating mb-3">
+            <input
+              type="email"
+              class="form-control"
+              id="floatingMail"
+              placeholder="name@example.com"
+              name="email"
+              required
+            />
+            <label for="floatingMail" class="text-dark opacity-50"
+            >Email address</label
+            >
+            <p class="text-danger pt-2 mb-0" id="existEmailDanger"></p>
+            <p class="text-danger pt-2 mb-0" id="emailDanger"></p>
+          </div>
+          <div class="form-floating">
+            <input
+              type="password"
+              class="form-control"
+              id="floatingPassword"
+              placeholder="Password"
+              name="password"
+              required
+            />
+            <label for="floatingPassword" class="text-dark opacity-50"
+              >Password</label
+            >
+            <p class="text-danger pt-2" id="passwordDanger"></p>
+          </div>
+          <div class="form-check text-start my-3">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              value="remember-me"
+              id="flexCheckDefault"
+            />
+            <label class="form-check-label" for="flexCheckDefault">
+              Remember me
+            </label>
+          </div>
+          <button class="btn btn-primary w-100 py-2" type="submit">
+            Sign Up
+          </button>
+        </form>
+        <p class="reg2">
+          Already have an account ?<br />
+          <a href="/login" class="btn btn-lg fw-bold p-2 text-white">Login</a>
+        </p>
+      </main>
+      <script>
+        existEmailDanger.style.display = "none"
+        emailDanger.style.display = "none"
+        if(sessionStorage.getItem("msg")){
+          signupDanger.textContent = sessionStorage.getItem("msg")
+        }
+        setTimeout(()=>{
+          signupDanger.textContent = ""
+          sessionStorage.removeItem("msg")
+        }, 5000)
+        signupForm.addEventListener("submit" , async (e)=>{
+          sessionStorage.removeItem("msg")
+          emailDanger.textContent = ""
+          passwordDanger.textContent = ""
+          existEmailDanger.textContent = ""
+          e.preventDefault();
+          let mailInput = document.getElementById("floatingMail")
+          let passInput = document.getElementById("floatingPassword")
+          let userInput = document.getElementById("floatingInput")
+          const res = await fetch("/register" , {
+            method:"POST",
+            body: JSON.stringify({username : userInput.value , email : mailInput.value , password :  passInput.value }),
+            headers: { "Content-Type": "application/json" },
+          })
+          const data = await res.json()
+          if(data.missValidation){
+            if(data.missValidation.length == 1){
+              if(data.missValidation[0].path == "email"){
+                emailDanger.style.display = "inline-block"
+                emailDanger.textContent = data.missValidation[0].msg
+              }else{
+                 existEmailDanger.style.display = "none"
+                passwordDanger.textContent = data.missValidation[0].msg
+              }
+            }
+          }
+          if(data.existsEmail){
+            existEmailDanger.style.display = "inline-block"
+            existEmailDanger.textContent = data.existsEmail
+          }
+          if(data.id){
+            location.assign("/dashboard")
+          }
+       })
+      </script>
+      <script src="js/bootstrap.bundle.min.js"></script>
+    </div>
+  </body>
+</html>

@@ -137,12 +137,12 @@
     </svg>
 
     <main class="d-flex flex-nowrap">
-      <%- include('../Components/Sidebar.ejs' , {currentPage : ""}) %>
+      <%- include('../Components/Sidebar.ejs' , {currentPage : "" , user:user}) %>
       <section class="w-100">
         <%- include('../Components/navbar.ejs') %>
         <nav class="px-2 mt-4 d-flex flex-wrap justify-content-between" aria-label="breadcrumb">
           <ol class="breadcrumb ps-5">
-            <li class="breadcrumb-item"><a href="/">Home</a></li>
+            <li class="breadcrumb-item"><a href="/dashboard">Home</a></li>
             <li class="breadcrumb-item active" aria-current="page"> <%= customer.firstname %></li>
           </ol>
 
