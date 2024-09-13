@@ -9,6 +9,9 @@ const corsConfig = {
   credential : true ,
   methods : ["GET" , "POST" , "PUT" , "DELETE"] 
 }
+const cookieParser = require("cookie-parser")
+app.use(express.json())
+app.use(cookieParser())
 app.use(methodOverride("_method"));
 app.use(express.urlencoded({ extended: true })); //To Access Body Parameters
 app.set("view engine", "ejs"); //to Use EJS

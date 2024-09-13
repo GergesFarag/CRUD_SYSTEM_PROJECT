@@ -18,7 +18,7 @@
         <hr />
         <ul class="nav nav-pills flex-column mb-auto">
           <li class="nav-item">
-            <a href="/" class="nav-link text-white <%= currentPage == "index" ? "active" : "" %>" aria-current="page">
+            <a href="/dashboard" class="nav-link text-white <%= currentPage == "dashboard" ? "active" : "" %>" aria-current="page">
               <svg class="bi pe-none me-2" width="16" height="16">
                 <use xlink:href="#home" />
               </svg>
@@ -27,7 +27,7 @@
           </li>
 
           <li>
-            <a href="/customer/add.html" class="nav-link text-white <%= currentPage == "add" ? "active" : "" %>">
+            <a href="/customer/add" class="nav-link text-white <%= currentPage == "add" ? "active" : "" %>">
               <svg class="bi pe-none me-2" width="16" height="16">
                 <use xlink:href="#people-circle" />
               </svg>
@@ -50,14 +50,14 @@
               height="32"
               class="rounded-circle me-2"
             />
-            <strong class="sidebar-text">Gerges</strong>
+            <strong class="sidebar-text"><%= user.username %></strong>
           </a>
           <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
             <li><a class="dropdown-item" href="#">New project...</a></li>
             <li><a class="dropdown-item" href="#">Settings</a></li>
             <li><a class="dropdown-item" href="#">Profile</a></li>
             <li><hr class="dropdown-divider" /></li>
-            <li><a class="dropdown-item" href="#">Sign out</a></li>
+            <li><a class="dropdown-item" href="/signout">Sign out</a></li>
           </ul>
         </div>
       </div>
