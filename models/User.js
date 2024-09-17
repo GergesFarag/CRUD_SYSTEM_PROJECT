@@ -4,8 +4,20 @@ const Schema = mongoose.Schema
 const userSchema = new Schema({
     username: String,
     email : String,
-    password : String
-});
+    password : String,
+    profileImage : String,
+    customersInfo: [
+        {
+            firstname : String,
+            lastname : String,
+            email : String,
+            phone : Number,
+            age : Number,
+            country : String,
+            gender : String
+        } ,
+    ]
+} , {timestamps : true});
 
 const saltRounds = 10
 userSchema.pre("save", async function (next) {

@@ -1,55 +1,69 @@
 const moment = require("moment");
-const Customer = require("../models/Customer"); //Getting customer Collection from models
+const User = require("../models/User.js")
+const jwt = require("jsonwebtoken");
+
+
+let getTokenId = function(req,res){
+  const decoded =  jwt.verify(req.cookies.jwt , "seckeypass")
+  return decoded.id
+}
 
 const customer_dashboard_get = async (req, res) => {
-  const customers = await Customer.find();
-  res.render("dashboard.ejs", { customers, moment , user : res.locals.user });
+  const userId = getTokenId(req,res)
+  const user = await User.findById(userId);
+  res.render("dashboard", { customers: user.customersInfo , moment , user : res.locals.user });
 };
 const customer_add_get = async (req, res) => {
-  await res.render("customer/add");
+  await res.render("customer/add" , {moment});
 };
 const customer_edit_get = async (req, res) => {
-  await res.render("customer/edit");
+  await res.render("customer/edit" , {moment});
 };
 const customer_search_get = async (req, res) => {
-  await res.render("customer/search" );
+  await res.render("customer/search" ,  {moment});
 };
 const customer_view_get = async (req, res) => {
-  const customer = await Customer.findById(req.params.id);
+  const userId = getTokenId(req,res)
+  const user = await User.findById(userId);
+  const customer = user.customersInfo.filter(customer => (req.params.id == customer.id))
+  console.log(customer)
   res.render("customer/view", { customer, moment });
 };
 const customer_editspecif_get = async (req, res) => {
-  const customer = await Customer.findById(req.params.id);
-  res.render("customer/edit", { customer });
+  const userId = getTokenId(req,res)
+  const user = await User.findById(userId);
+  const customer = user.customersInfo.filter(customer => (req.params.id == customer.id))
+  res.render("customer/edit", { customer , moment });
 };
 const customer_index_post = async (req, res) => {
-  await Customer.create(req.body);
+  const userId = getTokenId(req,res)
+  await User.updateOne({_id: userId} , { $push: {customersInfo : req.body} })
   res.redirect("/dashboard");
 };
-const customer_index_delete = (req, res) => {
-  Customer.findByIdAndDelete(req.params.id)
-    .then(() => {
-      console.log("User Found And Deleted !");
-      res.redirect("/dashboard");
-    })
-    .catch((error) => {
-      console.log("Error Occured : ", error);
-    });
+const customer_index_delete = async (req, res) => {
+  const userId = getTokenId(req,res)
+  await User.updateOne({_id: userId} , { $pull: {customersInfo : {_id : req.params.id}} })
+  res.redirect("/dashboard")
 };
 const customer_index_put = async (req, res) => {
-  await Customer.findByIdAndUpdate(req.params.id, req.body);
-  console.log("User Updated");
+  await User.updateOne(
+    { "customersInfo._id" : req.params.id }, 
+    { "customersInfo.$" : req.body } 
+  );
   res.redirect("/dashboard");
 };
+
 const customer_search_post = async (req, res) => {
-  let customers = await Customer.find();
+  const userId = getTokenId(req,res)
+  const user = await User.findById(userId)
+  let customers = user.customersInfo
   const searchValue = req.body.search;
   let myCustomers = customers.filter(
     (customer) =>
-      customer.firstname.toLowerCase() == String(searchValue).toLowerCase() ||
-      customer.lastname.toLowerCase() == String(searchValue).toLowerCase()
+      customer.firstname.toLowerCase() == String(searchValue).trim().toLowerCase() ||
+      customer.lastname.toLowerCase() == String(searchValue).trim().toLowerCase()
   );
-  res.render("customer/search", { myCustomers });
+  res.render("customer/search", { myCustomers , moment});
 };
 
 module.exports = {

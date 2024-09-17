@@ -21,20 +21,19 @@ const isUserLogin = function (req, res, next) {
   }
 };
 
-const requireAuth = function (req, res, next) {
-  const danger = `<div class="alert alert-danger" role="alert">Please Sign Up First !</div>`;
+const requireAuth = function (req, res, next) {;
   let token = req.cookies.jwt;
   if (token) {
     jwt.verify(token, "seckeypass", (error) => {
       //verifying token
       if (error) {
-        res.render("user/register", { danger });
+        res.render("user/register");
       } else {
         next();
       }
     });
   } else {
-    res.render("user/register", { danger });
+    res.render("user/register");
   }
 };
 

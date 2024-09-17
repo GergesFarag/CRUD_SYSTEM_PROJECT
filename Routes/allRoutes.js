@@ -4,6 +4,9 @@ const customer_cont = require("../Controllers/customerControllers");
 const user_cont = require("../Controllers/userControllers");
 const middlewares = require("../middlewares/middleware")
 const {check} = require("express-validator")
+const multer = require("multer")
+const upload = multer({ storage: multer.diskStorage({}) });
+
 
 router.get("*" , middlewares.isUserLogin);
 
@@ -41,5 +44,7 @@ router.post("/register",[check("email", "Please provide a valid email").isEmail(
 router.post("/login" , user_cont.user_login_post)
 
 router.get("/signout" , user_cont.user_signout_get)
+
+router.post("/update_profile" , upload.single("avatar") , user_cont.user_update_profile_post)
 
 module.exports = router;
