@@ -23,7 +23,7 @@
 
 <body class="d-flex h-100 text-center text-bg-dark body">
   <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column position-relative">
-    <%- include('Components/LogHeader') %>
+    <%- include('Components/LogHeader' , {currPage : "Home"}) %>
       <main class="px-3 my-auto">
         <div class="index-content">
           <h1>Hi <%- user !=null ? user.username : "There <br> I'm CRUD SYSTEM"%>

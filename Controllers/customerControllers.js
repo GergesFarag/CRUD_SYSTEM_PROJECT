@@ -1,18 +1,11 @@
 const moment = require("moment");
 const User = require("../models/User.js")
-const jwt = require("jsonwebtoken");
-
-
-let getTokenId = function(req,res){
-  const decoded =  jwt.verify(req.cookies.jwt , "seckeypass")
-  return decoded.id
-}
 
 const customer_dashboard_get = async (req, res) => {
-  const userId = getTokenId(req,res)
-  const user = await User.findById(userId);
+  const user = await User.findById(req.decoded);
   res.render("dashboard", { customers: user.customersInfo , moment , user : res.locals.user });
 };
+
 const customer_add_get = async (req, res) => {
   await res.render("customer/add" , {moment});
 };
@@ -22,40 +15,61 @@ const customer_edit_get = async (req, res) => {
 const customer_search_get = async (req, res) => {
   await res.render("customer/search" ,  {moment});
 };
+
 const customer_view_get = async (req, res) => {
-  const userId = getTokenId(req,res)
-  const user = await User.findById(userId);
+  const user = await User.findById(req.decoded);
   const customer = user.customersInfo.filter(customer => (req.params.id == customer.id))
-  console.log(customer)
   res.render("customer/view", { customer, moment });
 };
+
+//get edit customer page 
 const customer_editspecif_get = async (req, res) => {
-  const userId = getTokenId(req,res)
-  const user = await User.findById(userId);
+  const user = await User.findById(req.decoded);
   const customer = user.customersInfo.filter(customer => (req.params.id == customer.id))
   res.render("customer/edit", { customer , moment });
 };
+
+//adding new customer
 const customer_index_post = async (req, res) => {
-  const userId = getTokenId(req,res)
-  await User.updateOne({_id: userId} , { $push: {customersInfo : req.body} })
+  await User.updateOne({_id: req.decoded} , { $push: {customersInfo : {
+    firstname : req.body.firstname,
+    lastname : req.body.lastname,
+    email : req.body.email,
+    phone : req.body.phone,
+    age : req.body.age,
+    country : req.body.country,
+    gender : req.body.gender,
+    createdAt: new Date(),
+    }} 
+  })
   res.redirect("/dashboard");
 };
+
+//delete customer
 const customer_index_delete = async (req, res) => {
-  const userId = getTokenId(req,res)
-  await User.updateOne({_id: userId} , { $pull: {customersInfo : {_id : req.params.id}} })
+  await User.updateOne({_id: req.decoded} , { $pull: {customersInfo : {_id : req.params.id}} })
   res.redirect("/dashboard")
 };
+
+//edit existing customer
 const customer_index_put = async (req, res) => {
   await User.updateOne(
     { "customersInfo._id" : req.params.id }, 
-    { "customersInfo.$" : req.body } 
+    { "customersInfo.$.firstname" : req.body.firstname,
+      "customersInfo.$.lastname" : req.body.lastname,
+      "customersInfo.$.age" : req.body.age,
+      "customersInfo.$.email" : req.body.email,
+      "customersInfo.$.gender" : req.body.gender,
+      "customersInfo.$.country" : req.body.country,
+      "customersInfo.$.updatedAt" : new Date(),
+     } 
   );
   res.redirect("/dashboard");
 };
 
+//search for specific customer
 const customer_search_post = async (req, res) => {
-  const userId = getTokenId(req,res)
-  const user = await User.findById(userId)
+  const user = await User.findById(req.decoded)
   let customers = user.customersInfo
   const searchValue = req.body.search;
   let myCustomers = customers.filter(

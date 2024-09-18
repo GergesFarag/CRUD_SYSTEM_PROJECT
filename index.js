@@ -18,6 +18,7 @@ app.set("view engine", "ejs"); //to Use EJS
 app.use(express.static("public")); //to Use Static Files e.g. (Css , Js , Images)
 app.use(myRoutes);
 app.use(cors(corsConfig))
+require('dotenv').config();
 const port = process.env.PORT || 5500
 
 //Connection To Database

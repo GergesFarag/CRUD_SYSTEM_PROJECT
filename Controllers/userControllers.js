@@ -2,12 +2,12 @@ const User = require("../models/User");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { validationResult } = require("express-validator");
-const ImageValidation = require("../utils/ImageValidation")
+require('dotenv').config();
 const cloudinary = require("cloudinary").v2
 cloudinary.config({ 
-  cloud_name: 'de4xhnn8t', 
-  api_key: '726577389326539', 
-  api_secret: 'WFo4o_aE3Kf787QJAf0K_ZGsiZA'
+  cloud_name: process.env.CLOUD_NAME, 
+  api_key: process.env.CLOUD_API_KEY, 
+  api_secret: process.env.CLOUD_API_SECRET
 });
 
 
@@ -33,7 +33,7 @@ const user_reg_post = async (req, res) => {
       return res.json({ existsEmail: "Email Already Exists!" });
     } else {
       const newUser = await User.create(req.body);
-      const token = jwt.sign({ id: newUser._id }, "seckeypass");
+      const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET_KEY);
       res.cookie("jwt", token, { httpOnly: true, maxAge: 86400000 });
       return res.json({ id: newUser._id });
     }
@@ -64,23 +64,24 @@ const user_signout_get = async (req, res) => {
   res.redirect("/");
 };
 
-const user_update_profile_post = (req,res) => {
-  console.log(req.file.mimetype.split("/")[1])
-  const validationResult = ImageValidation(req.file.size , req.file.mimetype.split("/")[1].trim())
-  if(!validationResult){
-    res.redirect("/dashboard")
-  }
-   cloudinary.uploader.upload(req.file.path , async (err , resolve) => {
+const user_update_profile_post = async (req,res) => {
+     await cloudinary.uploader.upload(req.file.path , async (err , resolve) => {
     if(err){
       console.log(err)
     }else{
-      const decoded =  jwt.verify(req.cookies.jwt , "seckeypass")
+      const decoded =  jwt.verify(req.cookies.jwt , process.env.JWT_SECRET_KEY)
       await User.updateOne({_id : decoded.id} , {profileImage  : resolve.secure_url})
       res.redirect("/dashboard")
     }
   })
 }
 
+const user_features_get = async (req,res) => {
+  await res.render("features")
+}
+const user_contant_get = async(req,res) => {
+  await res.render("contact")
+}
 module.exports = {
   user_index_get,
   user_login_get,
@@ -88,5 +89,7 @@ module.exports = {
   user_reg_post,
   user_login_post,
   user_signout_get,
-  user_update_profile_post
+  user_update_profile_post,
+  user_features_get,
+  user_contant_get
 };

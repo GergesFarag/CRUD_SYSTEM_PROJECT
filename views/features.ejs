@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="./js/color-modes.js"></script>
+  <link rel="stylesheet" href="./bootstrap-icons-1.10.5/font/bootstrap-icons.min.css" />
+  <link rel="shortcut icon" href="./img/logo.png" type="image/x-icon" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="" />
+  <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors" />
+  <meta name="generator" content="Hugo 0.112.5" />
+  <link href="css/bootstrap.min.css" rel="stylesheet" />
+  <!-- Custom styles for this template -->
+  <link href="css/sidebars.css" rel="stylesheet" />
+  <link rel="stylesheet" href="css/myStyle.css" />
+  <link rel="stylesheet" href="css/dark-light.css" />
+  <link rel="stylesheet" href="css/cover.css" />
+  <title>Features</title>
+</head>
+
+<body class="d-flex h-100 text-center text-bg-dark body">
+  <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+    <%- include('components/LogHeader.ejs' , {currPage : "Features" }) %>
+        <div class="row flex-lg-row-reverse align-items-center g-5 py-5 ">
+          <div class="col-10 col-sm-8 col-lg-6">
+            <img src="img/logo.png" class="d-block mx-lg-auto img-fluid mt-5" alt="Bootstrap Themes" width="500"
+              height="500" loading="lazy">
+          </div>
+          <div class="col-lg-6">
+            <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3">System Features</h1>
+            <ul class="lead list-group list-group-flush position-relative">
+              <li class="list-group-item mb-3">Handling Your Customers Professionally</li>
+              <li class="list-group-item mb-3">CRUD Opeartions On Your Customers</li>
+              <li class="list-group-item mb-3">Safe Registeration and Login</li>
+              <li class="list-group-item mb-3">Protected From : XML , IDOR , Unrestricted files , ...</li>
+            </ul>
+          </div>
+      </div>
+  </div>
+  </div>
+  <script src="./js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

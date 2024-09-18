@@ -14,7 +14,9 @@ const userSchema = new Schema({
             phone : Number,
             age : Number,
             country : String,
-            gender : String
+            gender : String ,
+            createdAt: Date ,
+            updatedAt : {type: Date , default: Date.now}
         } ,
     ]
 } , {timestamps : true});
