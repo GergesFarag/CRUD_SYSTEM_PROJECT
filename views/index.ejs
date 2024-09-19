@@ -1,73 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="./js/color-modes.js"></script>
-    <link
-      rel="stylesheet"
-      href="./bootstrap-icons-1.10.5/font/bootstrap-icons.min.css"
-    />
-    <link rel="shortcut icon" href="./img/logo.png" type="image/x-icon" />
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="" />
-    <meta
-      name="author"
-      content="Mark Otto, Jacob Thornton, and Bootstrap contributors"
-    />
-    <meta name="generator" content="Hugo 0.112.5" />
-    <link href="./css/bootstrap.min.css" rel="stylesheet" />
-    <!-- Custom styles for this template -->
-    <link href="./css/sidebars.css" rel="stylesheet" />
-    <link rel="stylesheet" href="/css/myStyle.css" />
-    <link rel="stylesheet" href="/css/dark-light.css" />
-    <link rel="stylesheet" href="/css/cover.css" />
-    <title>Home Page</title>
-  </head>
-  <body class="d-flex h-100 text-center text-bg-dark body">
-    <div
-      class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column position-relative"
-    >
-      <%- include('Components/LogHeader') %>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="./js/color-modes.js"></script>
+  <link rel="stylesheet" href="./bootstrap-icons-1.10.5/font/bootstrap-icons.min.css" />
+  <link rel="shortcut icon" href="./img/logo.png" type="image/x-icon" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="" />
+  <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors" />
+  <meta name="generator" content="Hugo 0.112.5" />
+  <link href="./css/bootstrap.min.css" rel="stylesheet" />
+  <!-- Custom styles for this template -->
+  <link href="./css/sidebars.css" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/myStyle.css" />
+  <link rel="stylesheet" href="/css/dark-light.css" />
+  <link rel="stylesheet" href="/css/cover.css" />
+  <title>Home Page</title>
+</head>
+
+<body class="d-flex h-100 text-center text-bg-dark body">
+  <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column position-relative">
+    <%- include('Components/LogHeader' , {currPage : "Home"}) %>
       <main class="px-3 my-auto">
-        <h1>Hi <%= user != null ? user.username : "There "%>
-          <br>
-          I'm CRUD SYSTEM</h1>
-        <p class="lead">
-          <a
-            href="/dashboard"
-            class="btn btn-lg btn-light fw-bold border-white bg-white sign"
-            >Dashboard</a
-          >
-        </p>
-        <% if (user) { %>
-        <p class="lead">
-          <a href="/signout" class="btn btn-lg fw-bold p-2 reg">Sign Out</a>
-        </p>
-        <div class="space">
+        <div class="index-content">
+          <h1>Hi <%- user !=null ? user.username : "There <br> I'm CRUD SYSTEM"%>
+          </h1>
+          <% if (user && user.profileImage) { %>
+            <img width="150" height="150" src="<%= user.profileImage %>" alt="Profile Image" class="rounded-circle my-4"
+              id="myImg">
+              <br/>
+            <% } %>
+              <p class="lead">
+                <a href="/dashboard" class="btn btn-lg btn-light fw-bold border-white bg-white sign">Dashboard</a>
+              </p>
+              <% if (user) { %>
+                <p class="lead">
+                  <a href="/signout" class="btn btn-lg fw-bold p-2 reg">Sign Out</a>
+                </p>
+                <% } %>
+                  <% if (!user) { %>
+                    <p class="lead">
+                      <a href="/login" class="btn btn-lg fw-bold reg">Login</a>
+                    </p>
+                    <p class="lead register">
+                      Not Logged Yet ?<br />
+                      <a href="/register" class="btn btn-lg fw-bold p-2 reg">Register</a>
+                    </p>
+                    <% } %>
         </div>
-        <% } %> <% if (!user) { %>
-        <p class="lead">
-          <a href="/login" class="btn btn-lg fw-bold reg">Login</a>
-        </p>
+        <footer class="text-white-50 position-absolute">
+          Developed By :
+          <a href="https://www.linkedin.com/in/gerges-farag/" class="text-white" target="_blank"> Gerges Farag</a><sup>
+            &copy;</sup>
+        </footer>
       </main>
-      <p class="lead register">
-        Not Logged Yet ??<br />
-        <a href="/register" class="btn btn-lg fw-bold p-2 reg">Register</a>
-      </p>
-      <% } %>
-      <footer class="text-white-50 d-flex justify-content-center align-items-center">
-        Developed By :
-         <a
-          href="https://www.linkedin.com/in/gerges-farag/"
-          class="text-white"
-          target="_blank"
-          > Gerges Farag</a
-        ><sup> &copy;</sup>
-      </footer>
-    </div>
-    <!-- <script src="/docs/5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script> -->
-    <script src="./js/bootstrap.bundle.min.js"></script>
-  </body>
+  </div>
+  <!-- <script src="/docs/5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script> -->
+  <script src="./js/bootstrap.bundle.min.js"></script>
+</body>
+
 </html>

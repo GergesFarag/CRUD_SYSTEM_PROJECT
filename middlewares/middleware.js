@@ -4,7 +4,7 @@ const User = require("../models/User");
 const isUserLogin = function (req, res, next) {
   let token = req.cookies.jwt;
   if (token) {
-    jwt.verify(token, "seckeypass", async (error, decoded) => {
+    jwt.verify(token, process.env.JWT_SECRET_KEY , async (error, decoded) => {
       //verifying token and decode it
       if (error) {
         res.locals.user = null;
@@ -21,21 +21,25 @@ const isUserLogin = function (req, res, next) {
   }
 };
 
-const requireAuth = function (req, res, next) {
-  const danger = `<div class="alert alert-danger" role="alert">Please Sign Up First !</div>`;
+const requireAuth = function (req, res, next) {;
   let token = req.cookies.jwt;
   if (token) {
-    jwt.verify(token, "seckeypass", (error) => {
-      //verifying token
+    jwt.verify(token, process.env.JWT_SECRET_KEY, (error) => {
       if (error) {
-        res.render("user/register", { danger });
+        res.render("user/register");
       } else {
         next();
       }
     });
   } else {
-    res.render("user/register", { danger });
+    res.render("user/register");
   }
 };
 
-module.exports = { requireAuth, isUserLogin };
+const getTokenId = function(req,res , next){
+  const decoded =  jwt.verify(req.cookies.jwt , process.env.JWT_SECRET_KEY)
+  req.decoded = decoded.id
+  next()
+}
+
+module.exports = { requireAuth, isUserLogin , getTokenId };

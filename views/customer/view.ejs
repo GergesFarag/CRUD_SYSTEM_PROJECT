@@ -137,24 +137,23 @@
     </svg>
 
     <main class="d-flex flex-nowrap">
-      <%- include('../Components/Sidebar.ejs' , {currentPage : "" , user:user}) %>
+      <%- include('../Components/Sidebar.ejs' , {currentPage : "" , user:user , moment : moment}) %>
       <section class="w-100">
         <%- include('../Components/navbar.ejs') %>
-
         <nav
           style="width: 88%"
-          class="px-2 mt-4 d-flex flex-wrap justify-content-between"
+          class="px-2 mt-4 d-flex flex-wrap justify-content-center"
           aria-label="breadcrumb"
         >
           <ol class="breadcrumb ms-5">
             <li class="breadcrumb-item"><a href="/dashboard">Home</a></li>
             <li class="breadcrumb-item active" aria-current="page">
-             <%= customer.firstname %>
+             <%= customer[0].firstname %>
             </li>
           </ol>
 
           <p class=" ">
-            <span class="fw-medium fs-6">Id :</span> <%= customer._id %>
+            <span class="fw-medium fs-6 ms-3">Id :</span> <%= customer[0]._id %>
           </p>
         </nav>
 
@@ -165,48 +164,48 @@
           <thead>
             <tr>
               <th scope="col">First Name</th>
-              <th class="fw-normal" scope="col"><%= customer.firstname %></th>
+              <th class="fw-normal" scope="col"><%= customer[0].firstname %></th>
             </tr>
           </thead>
           <tbody>
             <tr>
               <th scope="row">Last Name</th>
-              <td><%= customer.lastname %></td>
+              <td><%= customer[0].lastname %></td>
             </tr>
 
             <tr>
               <th scope="row">Telephone</th>
-              <td><%= customer.phone %></td>
+              <td><%= customer[0].phone %></td>
             </tr>
 
             <tr>
               <th scope="row">Email</th>
-              <td><%= customer.email %></td>
+              <td><%= customer[0].email %></td>
             </tr>
 
             <tr>
               <th scope="row">Gender</th>
-              <td><%= customer.gender %></td>
+              <td><%= customer[0].gender %></td>
             </tr>
 
             <tr>
               <th scope="row">Age</th>
-              <td><%= customer.age %></td>
+              <td><%= customer[0].age %></td>
             </tr>
 
             <tr>
               <th scope="row">Country</th>
-              <td><%= customer.country %></td>
+              <td><%= customer[0].country %></td>
             </tr>
 
             <tr>
               <th scope="row">Created on</th>
-              <td><%= moment(customer.createdAt).format("LLL")%></td>
+              <td><%= moment(customer[0].createdAt).format("LLL")%></td>
             </tr>
 
             <tr>
               <th scope="row">Last Update</th>
-              <td><%= moment(customer.updatedAt).format("LLL")%></td>
+              <td><%= moment(customer[0].updatedAt).format("LLL")%></td>
             </tr>
           </tbody>
         </table>

@@ -138,12 +138,12 @@
     </svg>
 
     <main class="d-flex flex-nowrap">
-    <%- include('../Components/Sidebar.ejs' , {currentPage : "add" , user:user}) %>
+    <%- include('../Components/Sidebar.ejs' , {currentPage : "add" , user:user , moment : moment}) %>
 
       <section class="w-100">
         <%- include('../Components/navbar.ejs') %>
 
-        <form class="mx-0 row gx-3 gy-4 mt-3 ps-4 pe-4" method="post">
+        <form class="mx-0 row gx-3 gy-4 mt-3 ps-1" method="post">
           <div class="col-md-6">
             <label for="inputfirstName4" class="form-label">First Name:</label>
             <input

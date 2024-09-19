@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="./js/color-modes.js"></script>
+    <link rel="stylesheet" href="./bootstrap-icons-1.10.5/font/bootstrap-icons.min.css" />
+    <link rel="shortcut icon" href="./img/logo.png" type="image/x-icon" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="" />
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors" />
+    <meta name="generator" content="Hugo 0.112.5" />
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
+    <link href="css/sidebars.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/myStyle.css" />
+    <link rel="stylesheet" href="css/dark-light.css" />
+    <link rel="stylesheet" href="css/cover.css" />
+    <title>Contact</title>
+</head>
+
+<body class="d-flex h-100 text-center text-bg-dark body">
+    <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+        <%- include('components/LogHeader.ejs' , {currPage : "Contact" }) %>
+            <div class="row flex-lg-row-reverse align-items-center py-3 justify-content-center">
+                <div class="col-10 col-sm-8 col-lg-6">
+                    <p class="display-5">Thank You For Using Our Services</p>
+                    <img src="img/logo.png" class=" mx-lg-auto img-fluid my-3" alt="Bootstrap Themes" width="200"
+                        height="200" loading="lazy">
+                </div>
+                <div class="f-dlex mt-5">
+                    <button type="button" class="btn bg-primary-subtle">
+                        <a href="https://www.linkedin.com/in/gerges-farag/" style="all: unset;" target="_blank">LinkedIn</a>
+                    </button>
+                    <button type="button" class="btn bg-danger-subtle">
+                        <a href="https://github.com/GergesFarag" style="all: unset;" target="_blank">GitHub</a>
+                    </button>
+                    <button type="button" class="btn bg-success-subtle">
+                        <a href="https://wa.me/1227936675" style="all: unset;" target="_blank">WhatsApp</a>
+                    </button>
+                </div>
+            </div>
+    </div>
+    </div>
+    <script src="./js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

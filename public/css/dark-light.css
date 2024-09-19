@@ -15,7 +15,6 @@
 
 .b-example-divider {
   width: 100%;
-  height: 3rem;
   background-color: rgba(0, 0, 0, 0.1);
   border: solid rgba(0, 0, 0, 0.15);
   border-width: 1px 0;
@@ -26,8 +25,15 @@
 .b-example-vr {
   flex-shrink: 0;
   width: 1.5rem;
-  height: 100vh;
+  align-self: stretch;
+  min-height: 100vh;
 }
+/* @media screen and (max-width : 768px) {
+  .b-example-vr{
+    min-height: auto;
+    max-height: 850px;
+  }
+} */
 
 .bi {
   vertical-align: -0.125em;

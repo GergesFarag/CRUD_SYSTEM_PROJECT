@@ -11,7 +11,7 @@
     />
     <link
       rel="shortcut icon"
-      href="../../public/img/logo.png"
+      href="img/logo.png"
       type="image/x-icon"
     />
     <meta charset="utf-8" />
@@ -35,11 +35,10 @@
   </head>
   <body class="d-flex h-100 text-center text-bg-dark body">
     <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
-      <%- include('../Components/LogHeader') %>
+      <%- include('../Components/LogHeader' ,  {currPage : "Register"}) %>
       <main class="form-signin w-100 m-auto">
         <p class="text-danger" id="signupDanger"></p>
         <form id="signupForm" method="post" action="/register">
-          <%- danger %>
           <h1 class="h3 mb-3 fw-normal">Register :</h1>
           <div class="form-floating mb-3">
             <input
