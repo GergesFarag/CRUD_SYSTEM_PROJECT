@@ -26,7 +26,7 @@ const user_reg_get = async (req, res) => {
 const user_reg_post = async (req, res) => {
   const ErrorArr = validationResult(req);
   if (ErrorArr.errors.length != 0) {
-    return res.json({ missValidation: ErrorArr.errors });
+    return res.json({ missValidation: ErrorArr.errors});
   } else {
     const isCurrentEmail = await User.findOne({ email: req.body.email });
     if (isCurrentEmail) {

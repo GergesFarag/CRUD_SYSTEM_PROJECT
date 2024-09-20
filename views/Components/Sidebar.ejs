@@ -12,7 +12,8 @@
   <hr />
   <ul class="nav nav-pills flex-column mb-auto">
     <li class="nav-item">
-      <a href="/dashboard" class="nav-link text-white <%= currentPage == " dashboard" ? "active" : "" %>" aria-current="page">
+      <a href="/dashboard" class="nav-link text-white <%= currentPage == "dashboard" ? "active" : "" %>"
+        aria-current="page">
         <svg class="bi pe-none me-2" width="16" height="16">
           <use xlink:href="#home" />
         </svg>
@@ -21,7 +22,7 @@
     </li>
 
     <li>
-      <a href="/customer/add" class="nav-link text-white <%= currentPage == " add" ? "active" : "" %>">
+      <a href="/customer/add" class="nav-link text-white <%= currentPage == "add" ? "active" : "" %>">
         <svg class="bi pe-none me-2" width="16" height="16">
           <use xlink:href="#people-circle" />
         </svg>
@@ -31,8 +32,10 @@
   </ul>
   <hr />
   <div class="dropdown">
-    <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-      <img src="<%= user.profileImage || "img/logo.png"  %>" alt="" width="32" height="32" class="rounded-circle me-2" />
+    <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
+      data-bs-toggle="dropdown" aria-expanded="false">
+      <img src="<%= user.profileImage || " img/logo.png" %>" alt="" width="32" height="32" class="rounded-circle me-2"
+      />
       <strong class="sidebar-text">
         <%= user.username %>
       </strong>
@@ -65,7 +68,8 @@
                 <label for="imageInput">Upload Image</label>
                 <input name="avatar" type="file" value="Change Image.." id="imageInput" style="display: none;">
               </button>
-              <img width="75" height="75" src="<%= user.profileImage || "img/logo.png" %>" alt="Profile Image" class="rounded-circle" id="myImg">
+              <img width="75" height="75" src="<%= user.profileImage || " img/logo.png" %>" alt="Profile Image"
+              class="rounded-circle" id="myImg">
             </div class="d-flex flex-row justify-content-center align-items-center">
             <p class="text-danger" id="imgDanger"></p>
             <hr>
