@@ -41,10 +41,11 @@ Start the server
 ```bash
   node index.js
 ```
-## Upcomming Updates isA : 
+## System Features : 
 - JWT Authentication in (Login - Register - Logout )
-- Password Hashing via Bcrypt
-- Cookies Handling
+- Authentication and validation on user inputs
+- Controlled MVC Architecture
+- Responsive design via bootstrap
 
 ## Contact
 For any questions or suggestions, please feel free to open an issue or contact me.
